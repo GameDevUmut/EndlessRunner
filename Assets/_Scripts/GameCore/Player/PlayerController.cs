@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Interfaces;
+using R3;
 using UnityEngine;
 
 namespace GameCore.Player
@@ -27,6 +28,7 @@ namespace GameCore.Player
 
         private int currentLaneIndex = CENTER_LANE_INDEX;
         private bool isJumping = false;
+        private int lastDistanceMilestone = 0; // Track last distance milestone to update DistanceTravelled
         private float originalYPosition;
         private Vector3 playerVelocity;
         private float targetXPosition;
@@ -36,6 +38,7 @@ namespace GameCore.Player
         #region Unity Methods
 
         void Start()
+
         {
             if (characterController == null)
             {
@@ -45,6 +48,9 @@ namespace GameCore.Player
             originalYPosition = transform.position.y;
             targetXPosition = GetXPositionForLane(currentLaneIndex);
             playerVelocity.y = -2f;
+
+            // Initialize DistanceTravelled reactive property
+            DistanceTravelled = new ReactiveProperty<int>(0);
         }
 
         void Update()
@@ -78,6 +84,9 @@ namespace GameCore.Player
             Vector3 totalDisplacement = new Vector3(horizontalDisplacementX, verticalDisplacementY, 0);
             totalDisplacement += forwardDisplacement;
             characterController.Move(totalDisplacement);
+
+            // Update distance travelled based on distance from origin
+            UpdateDistanceTravelled();
         }
 
         #endregion
@@ -157,11 +166,26 @@ namespace GameCore.Player
             playerVelocity.y = -0.5f;
         }
 
+        private void UpdateDistanceTravelled()
+        {
+            // Calculate distance from origin (0, 0, 0)
+            float currentDistance = Vector3.Distance(transform.position, Vector3.zero);
+            int currentDistanceInt = Mathf.FloorToInt(currentDistance);
+
+            // Update DistanceTravelled every meter
+            if (currentDistanceInt > lastDistanceMilestone)
+            {
+                DistanceTravelled.Value = currentDistanceInt;
+                lastDistanceMilestone = currentDistanceInt;
+            }
+        }
+
         #endregion
 
         #region IPlayerService Members
 
         public Transform PlayerTransform => transform;
+        public ReactiveProperty<int> DistanceTravelled { get; private set; }
 
         #endregion
     }
