@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Interfaces;
+using R3;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore.Player
 {
@@ -25,59 +28,78 @@ namespace GameCore.Player
 
         #region Fields
 
-        private int currentLaneIndex = CENTER_LANE_INDEX;
-        private bool isJumping = false;
-        private float originalYPosition;
-        private Vector3 playerVelocity;
-        private float targetXPosition;
+        private int _currentLaneIndex = CENTER_LANE_INDEX;
+        private bool _isJumping = false;
+        private int _lastDistanceMilestone = 0; // Track last distance milestone to update DistanceTravelled
+        private float _originalYPosition;
+        private Vector3 _playerVelocity;
+        private float _targetXPosition;
+        private bool _isDead = false;
+        private IGameService _gameService;
 
         #endregion
 
         #region Unity Methods
 
         void Start()
+
         {
             if (characterController == null)
             {
                 characterController = GetComponent<CharacterController>();
             }
 
-            originalYPosition = transform.position.y;
-            targetXPosition = GetXPositionForLane(currentLaneIndex);
-            playerVelocity.y = -2f;
-        }
-
-        void Update()
+            _originalYPosition = transform.position.y;
+            _targetXPosition = GetXPositionForLane(_currentLaneIndex);
+            _playerVelocity.y = -2f;
+        }        void Update()
         {
+            // Stop all movement if player is dead
+            if (_isDead) return;
+            
             bool groundedPlayer = characterController.isGrounded;
             Vector3 forwardDisplacement = transform.forward * moveSpeed * Time.deltaTime;
             float currentX = transform.position.x;
-            float desiredXThisFrame = Mathf.Lerp(currentX, targetXPosition, laneChangeSpeed * Time.deltaTime);
+            float desiredXThisFrame = Mathf.Lerp(currentX, _targetXPosition, laneChangeSpeed * Time.deltaTime);
             float horizontalDisplacementX = desiredXThisFrame - currentX;
             float verticalDisplacementY = 0f;
-            if (isJumping)
+            if (_isJumping)
             {
             }
             else
             {
                 if (groundedPlayer)
                 {
-                    if (playerVelocity.y < 0)
+                    if (_playerVelocity.y < 0)
                     {
-                        playerVelocity.y = -0.5f;
+                        _playerVelocity.y = -0.5f;
                     }
                 }
                 else
                 {
-                    playerVelocity.y += gravityValue * Time.deltaTime;
+                    _playerVelocity.y += gravityValue * Time.deltaTime;
                 }
 
-                verticalDisplacementY = playerVelocity.y * Time.deltaTime;
+                verticalDisplacementY = _playerVelocity.y * Time.deltaTime;
             }
 
             Vector3 totalDisplacement = new Vector3(horizontalDisplacementX, verticalDisplacementY, 0);
             totalDisplacement += forwardDisplacement;
             characterController.Move(totalDisplacement);
+
+            // Update distance travelled based on distance from origin
+            UpdateDistanceTravelled();
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if(!_isDead && hit.gameObject.CompareTag("Obstacle"))
+            {
+                _isDead = true;
+                
+                _gameService.EndGame();
+                Debug.Log("Player hit an obstacle and died!");
+            }
         }
 
         #endregion
@@ -86,7 +108,9 @@ namespace GameCore.Player
 
         public void Jump()
         {
-            if (characterController.isGrounded && !isJumping)
+            if(_isDead) return;
+            
+            if (characterController.isGrounded && !_isJumping)
             {
                 StartCoroutine(PerformJumpCoroutine());
             }
@@ -94,29 +118,38 @@ namespace GameCore.Player
 
         public void Run()
         {
-        }
-
-        public void MoveLeft()
+        }        public void MoveLeft()
         {
-            if (currentLaneIndex > LEFT_LANE_INDEX)
+            if (_isDead) return;
+            
+            if (_currentLaneIndex > LEFT_LANE_INDEX)
             {
-                currentLaneIndex--;
-                targetXPosition = GetXPositionForLane(currentLaneIndex);
+                _currentLaneIndex--;
+                _targetXPosition = GetXPositionForLane(_currentLaneIndex);
             }
         }
 
         public void MoveRight()
         {
-            if (currentLaneIndex < RIGHT_LANE_INDEX)
+            if (_isDead) return;
+            
+            if (_currentLaneIndex < RIGHT_LANE_INDEX)
             {
-                currentLaneIndex++;
-                targetXPosition = GetXPositionForLane(currentLaneIndex);
+                _currentLaneIndex++;
+                _targetXPosition = GetXPositionForLane(_currentLaneIndex);
             }
         }
 
         #endregion
 
         #region Private Methods
+
+        [Inject]
+        private void Construct(IGameService gameService)
+        {
+            _gameService = gameService;
+        }
+        
 
         private float GetXPositionForLane(int laneIndex)
         {
@@ -127,7 +160,7 @@ namespace GameCore.Player
 
         private IEnumerator PerformJumpCoroutine()
         {
-            isJumping = true;
+            _isJumping = true;
             float jumpStartY = transform.position.y;
             float peakY = jumpStartY + jumpDistance;
             float elapsedTime = 0f;
@@ -145,16 +178,30 @@ namespace GameCore.Player
             float fallStartY = transform.position.y;
             while (elapsedTime < jumpApexTime)
             {
-                float desiredY = Mathf.Lerp(fallStartY, originalYPosition, elapsedTime / jumpApexTime);
+                float desiredY = Mathf.Lerp(fallStartY, _originalYPosition, elapsedTime / jumpApexTime);
                 float deltaYThisFrame = desiredY - transform.position.y;
                 characterController.Move(new Vector3(0, deltaYThisFrame, 0));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            characterController.Move(new Vector3(0, originalYPosition - transform.position.y, 0));
-            isJumping = false;
-            playerVelocity.y = -0.5f;
+            characterController.Move(new Vector3(0, _originalYPosition - transform.position.y, 0));
+            _isJumping = false;
+            _playerVelocity.y = -0.5f;
+        }
+
+        private void UpdateDistanceTravelled()
+        {
+            // Calculate distance from origin (0, 0, 0)
+            float currentDistance = Vector3.Distance(transform.position, Vector3.zero);
+            int currentDistanceInt = Mathf.FloorToInt(currentDistance);
+
+            // Update DistanceTravelled every meter
+            if (currentDistanceInt > _lastDistanceMilestone)
+            {
+                DistanceTravelled.Value = currentDistanceInt;
+                _lastDistanceMilestone = currentDistanceInt;
+            }
         }
 
         #endregion
@@ -162,6 +209,7 @@ namespace GameCore.Player
         #region IPlayerService Members
 
         public Transform PlayerTransform => transform;
+        public ReactiveProperty<int> DistanceTravelled { get; private set; } = new ReactiveProperty<int>(0);
 
         #endregion
     }

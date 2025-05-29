@@ -425,6 +425,7 @@ MonoBehaviour:
   - {fileID: 583354654}
   propPooler: {fileID: 1068374452}
   playerController: {fileID: 1584373285}
+  gameManager: {fileID: 358801736739785301}
 --- !u!1 &704534492
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +919,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 358801736739785299}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &358801736739785301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2528823142659416976, guid: f6d30fbb3f57cc94b92dce41c12b14ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 358801736739785299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f650e65f20b48c68f289e4cc75adf39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3229314209809169994
 PrefabInstance:
   m_ObjectHideFlags: 0

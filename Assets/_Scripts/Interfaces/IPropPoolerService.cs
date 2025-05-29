@@ -1,4 +1,5 @@
 ﻿using Addler.Runtime.Core.Pooling;
+using Cysharp.Threading.Tasks;
 
 namespace Interfaces
 {
@@ -8,5 +9,7 @@ namespace Interfaces
         PooledObject GetRandomVegetation();
         PooledObject GetRandomRoadBlock();
         PooledObject GetRandomProp();
+
+        UniTaskCompletionSource<bool> WarmupCompletion { get; }
     }
 }
