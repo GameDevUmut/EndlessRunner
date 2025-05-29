@@ -147,13 +147,12 @@ namespace Managers
             {
                 case ISceneLoadService.SceneName.MainScene:
                     await LoadMainScene();
+                    ToggleLoadingScreen(false);
                     break;
                 case ISceneLoadService.SceneName.GameScene:
                     await LoadGameScene();
                     break;
             }
-            
-            ToggleLoadingScreen(false);
         }
         #endregion
     }

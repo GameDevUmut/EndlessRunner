@@ -39,10 +39,10 @@ namespace GameCore.RandomizedPropSystem
 
         #region Unity Methods
 
-        private void Awake()
+        private async void Awake()
         {
             _isDisposing = false;
-            CreateAllPools();
+            await CreateAllPools();
         }
 
         private void OnDestroy()
