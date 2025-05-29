@@ -31,7 +31,6 @@ namespace Managers
         private async void Start()
         {
             await UniTask.WhenAll(_tasksBeforeGameStart);
-            await UniTask.Delay(1000);
             _sceneLoadService.ToggleLoadingScreen(false);
             OnGameStart(_tokenSource.Token).Forget();
         }
