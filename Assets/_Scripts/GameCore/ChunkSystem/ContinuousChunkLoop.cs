@@ -7,6 +7,8 @@ using GameCore.Scriptables;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Utilities;
+using VContainer;
+using VContainer.Unity;
 using Random = UnityEngine.Random;
 
 public class ContinuousChunkLoop : MonoBehaviour
@@ -21,6 +23,7 @@ public class ContinuousChunkLoop : MonoBehaviour
     private List<ChunkConnector> _activeChunks = new List<ChunkConnector>();
     private Vector3 _nextChunkPosition;
     private bool _isInitialized = false;
+    private IObjectResolver _resolver;
 
     private void Awake()
     {
@@ -39,13 +42,19 @@ public class ContinuousChunkLoop : MonoBehaviour
             UpdateChunkActivation();
         }
     }
+
+    [Inject]
+    private void Construct(IObjectResolver resolver)
+    {
+        _resolver = resolver;
+    }
     
     private async UniTask InitializeChunkPool()
     {
         for (int i = 0; i < _poolSize; i++)
         {
             GameObject chunkPrefab = await Addressables.LoadAssetAsync<GameObject>(levelData.LevelPrefabReferences[i]).BindTo(gameObject);
-            ChunkConnector chunk = Instantiate(chunkPrefab).GetComponent<ChunkConnector>();
+            ChunkConnector chunk = _resolver.Instantiate(chunkPrefab).GetComponent<ChunkConnector>();
             chunk.gameObject.SetActive(false);
             _chunksPool.Enqueue(chunk);
         }

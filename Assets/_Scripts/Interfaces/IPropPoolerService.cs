@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using Addler.Runtime.Core.Pooling;
 
 namespace Interfaces
 {
     public interface IPropPoolerService
     {
-        GameObject GetRandomBuilding();
-        GameObject GetRandomVegetation();
-        GameObject GetRandomRoadBlock();
-        GameObject GetRandomProp();
+        PooledObject GetRandomBuilding();
+        PooledObject GetRandomVegetation();
+        PooledObject GetRandomRoadBlock();
+        PooledObject GetRandomProp();
     }
 }

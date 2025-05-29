@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Addler.Runtime.Core.Pooling;
 using Cysharp.Threading.Tasks;
 using GameCore.Scriptables;
@@ -39,6 +40,12 @@ namespace GameCore.RandomizedPropSystem
             CreateAllPools();
         }
 
+        private void OnDestroy()
+        {
+            //we destroy the pool objects, release addressable assets from the memory
+            ReleasePools();
+        }
+
         #endregion
 
         #region Private Methods
@@ -62,29 +69,56 @@ namespace GameCore.RandomizedPropSystem
             }
         }
 
-        private GameObject GetRandomFromPool(List<AddressablePool> pools)
+        private PooledObject GetRandomFromPool(List<AddressablePool> pools)
         {
             var pool = pools.PickRandom();
             var poolObj = pool.Use();
-            return poolObj.Instance;
+            return poolObj;
         }
-        
-        public GameObject GetRandomBuilding()
+
+        private void ReleasePools()
+        {
+            foreach (var pool in buildingPools)
+            {
+                pool.Dispose();
+            }
+
+            foreach (var pool in propPools)
+            {
+                pool.Dispose();
+            }
+
+            foreach (var pool in roadBlockPools)
+            {
+                pool.Dispose();
+            }
+
+            foreach (var pool in vegetationPools)
+            {
+                pool.Dispose();
+            }
+        }
+
+        #endregion
+
+        #region IPropPoolerService Members
+
+        public PooledObject GetRandomBuilding()
         {
             return GetRandomFromPool(buildingPools);
         }
-        
-        public GameObject GetRandomVegetation()
+
+        public PooledObject GetRandomVegetation()
         {
             return GetRandomFromPool(vegetationPools);
         }
-        
-        public GameObject GetRandomRoadBlock()
+
+        public PooledObject GetRandomRoadBlock()
         {
             return GetRandomFromPool(roadBlockPools);
         }
-        
-        public GameObject GetRandomProp()
+
+        public PooledObject GetRandomProp()
         {
             return GetRandomFromPool(propPools);
         }

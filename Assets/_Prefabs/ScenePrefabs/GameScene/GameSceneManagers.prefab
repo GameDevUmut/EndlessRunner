@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propData: {fileID: 11400000, guid: 9f31daedfaef82743bf950c3c15c134b, type: 2}
-  perBuildingWarmupCount: 5
-  perVegetationWarmupCount: 5
-  perRoadBlockWarmupCount: 5
-  perPropWarmupCount: 5
+  perBuildingWarmupCount: 7
+  perVegetationWarmupCount: 10
+  perRoadBlockWarmupCount: 8
+  perPropWarmupCount: 12
