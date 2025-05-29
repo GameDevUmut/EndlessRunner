@@ -48,9 +48,6 @@ namespace GameCore.Player
             originalYPosition = transform.position.y;
             targetXPosition = GetXPositionForLane(currentLaneIndex);
             playerVelocity.y = -2f;
-
-            // Initialize DistanceTravelled reactive property
-            DistanceTravelled = new ReactiveProperty<int>(0);
         }
 
         void Update()
@@ -185,7 +182,7 @@ namespace GameCore.Player
         #region IPlayerService Members
 
         public Transform PlayerTransform => transform;
-        public ReactiveProperty<int> DistanceTravelled { get; private set; }
+        public ReactiveProperty<int> DistanceTravelled { get; private set; } = new ReactiveProperty<int>(0);
 
         #endregion
     }

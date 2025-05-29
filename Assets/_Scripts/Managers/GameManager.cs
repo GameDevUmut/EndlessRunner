@@ -19,6 +19,12 @@ namespace Managers
 
         #region Unity Methods
 
+        private void Awake()
+        {
+            _tokenSource = new CancellationTokenSource();
+            Timer.Value = 0;
+        }
+
         private void Start()
         {
             OnGameStart(_tokenSource.Token).Forget();

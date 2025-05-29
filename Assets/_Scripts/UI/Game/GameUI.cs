@@ -59,7 +59,7 @@ namespace UI.Game
             _gameService.Timer.Subscribe(timer =>
             {
                 var timeSpan = TimeSpan.FromSeconds(timer);
-                timerText.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+                timerText.text = $"Time {timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
 
                 //red flash
                 DOTween.Sequence().Append(timerText.DOColor(Color.red, 0.2f))
