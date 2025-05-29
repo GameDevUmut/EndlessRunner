@@ -89,6 +89,7 @@ public class ContinuousChunkLoop : MonoBehaviour
     private async UniTask InitializeChunksAfterPropWarmup()
     {
         await _propPoolerService.WarmupCompletion.Task; //wait for prop pooling warmup because chunks depend on it
+        await UniTask.Delay(500);
         await InitializeChunkPool();
     }
 
