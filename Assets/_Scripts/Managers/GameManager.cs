@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interfaces;
 using R3;
 using UnityEngine;
+using VContainer;
 
 namespace Managers
 {
@@ -12,7 +14,8 @@ namespace Managers
         #region Fields
 
         private bool _gameEnded;
-
+        private ISceneLoadService _sceneLoadService;
+        private List<UniTask> _tasksBeforeGameStart = new List<UniTask>();
         private CancellationTokenSource _tokenSource;
 
         #endregion
@@ -25,19 +28,29 @@ namespace Managers
             Timer.Value = 0;
         }
 
-        private void Start()
+        private async void Start()
         {
+            await UniTask.WhenAll(_tasksBeforeGameStart);
+            await UniTask.Delay(1000);
+            _sceneLoadService.ToggleLoadingScreen(false);
             OnGameStart(_tokenSource.Token).Forget();
         }
 
-        
+
         private void OnDestroy()
         {
             _tokenSource?.Cancel();
         }
+
         #endregion
 
         #region Private Methods
+
+        [Inject]
+        private async void Construct(ISceneLoadService sceneLoadService)
+        {
+            _sceneLoadService = sceneLoadService;
+        }
 
         private async UniTask OnGameStart(CancellationToken token)
         {
@@ -67,6 +80,16 @@ namespace Managers
 
         public Subject<Unit> GameEnded { get; } = new Subject<Unit>();
         public Subject<Unit> GameStarted { get; } = new Subject<Unit>();
+
+        public void WaitForTask(UniTask task)
+        {
+            _tasksBeforeGameStart.Add(task);
+        }
+
+        public void WaitForTasks(List<UniTask> tasks)
+        {
+            _tasksBeforeGameStart.AddRange(tasks);
+        }
 
         public void EndGame()
         {

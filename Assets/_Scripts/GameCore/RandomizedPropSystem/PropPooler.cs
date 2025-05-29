@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Addler.Runtime.Core.Pooling;
 using Cysharp.Threading.Tasks;
 using GameCore.Scriptables;
@@ -7,6 +6,7 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Utilities;
+using VContainer;
 
 namespace GameCore.RandomizedPropSystem
 {
@@ -24,6 +24,8 @@ namespace GameCore.RandomizedPropSystem
         #endregion
 
         #region Fields
+
+        private IGameService _gameService;
 
         private List<UniTask> _warmupTasks = new List<UniTask>();
         private List<AddressablePool> buildingPools = new List<AddressablePool>();
@@ -50,12 +52,22 @@ namespace GameCore.RandomizedPropSystem
 
         #region Private Methods
 
-        private void CreateAllPools()
+        [Inject]
+        private void Construct(IGameService gameService)
+        {
+            _gameService = gameService;
+        }
+
+        private async UniTask CreateAllPools()
         {
             CreatePool(propData.BuildingReferences, ref buildingPools, perBuildingWarmupCount);
             CreatePool(propData.VegetationReferences, ref vegetationPools, perVegetationWarmupCount);
             CreatePool(propData.RoadBlockReferences, ref roadBlockPools, perRoadBlockWarmupCount);
             CreatePool(propData.PropReferences, ref propPools, perPropWarmupCount);
+
+            await UniTask.WhenAll(_warmupTasks);
+            WarmupCompletion.TrySetResult(true);
+            _warmupTasks.Clear();
         }
 
         private void CreatePool(AssetReferenceGameObject[] assetReferences, ref List<AddressablePool> pools,
@@ -102,6 +114,8 @@ namespace GameCore.RandomizedPropSystem
         #endregion
 
         #region IPropPoolerService Members
+
+        public UniTaskCompletionSource<bool> WarmupCompletion { get; } = new UniTaskCompletionSource<bool>();
 
         public PooledObject GetRandomBuilding()
         {

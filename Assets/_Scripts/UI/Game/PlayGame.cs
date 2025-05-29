@@ -18,6 +18,7 @@ namespace UI.Main
     
         public void OnPlayGamePressed()
         {
+            _sceneLoadService.ToggleLoadingScreen(true);
             _sceneLoadService.Load(ISceneLoadService.SceneName.GameScene);
         }
     }

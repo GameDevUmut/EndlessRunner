@@ -1,4 +1,6 @@
-﻿using R3;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using R3;
 
 namespace Interfaces
 {
@@ -8,6 +10,10 @@ namespace Interfaces
 
         Subject<Unit> GameEnded { get; }
         Subject<Unit> GameStarted { get; }
+        
+        void WaitForTask(UniTask task);
+        
+        void WaitForTasks(List<UniTask> tasks);
 
         void EndGame();
 
