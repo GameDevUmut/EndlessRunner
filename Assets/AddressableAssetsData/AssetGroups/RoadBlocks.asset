@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: RoadBlocks
+  m_EditorClassIdentifier: 
+  m_GroupName: RoadBlocks
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f94557a65bd280a4cb1212a2fcfd7303
+  m_SerializeEntries:
+  - m_GUID: fea05091ba5f3f84786932dfdddc3b23
+    m_Address: SM_Prop_Barrier_Concrete_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78ebeadf27353e44bb92dc370f6d112e
+    m_Address: SM_Prop_Barrier_Concrete_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cf92dc42cc3c1241bb2fb28055ba976
+    m_Address: SM_Prop_Barrier_Concrete_Bare_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aba887719f07fd5479fa6418efa4fd7e
+    m_Address: SM_Prop_Barrier_Long_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 526f9ce77fdabd04fa98664f6722c47f
+    m_Address: SM_Prop_Barrier_Long_Bare_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66ae6eaeb969b45418a29fd7cdb6c662
+    m_Address: SM_Prop_Car_Wrecked_Squished_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49f5ecf4c20a2d844a6f50431d635081
+    m_Address: SM_Prop_Car_Wrecked_OpenBoot_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6f461fb4bebb2543bf61e750d192f71
+    m_Address: SM_Prop_Plank_Bench_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6e1a4ce864593c46b880ce4aafbadac
+    m_Address: SM_Prop_Bed_Hospital_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ad54cb8af867874e8cceb8be2e35bc5
+    m_Address: SM_Prop_Car_Wrecked_Squished_Rusted_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8e467cedd8679ac4e99ad639245097e2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: eba513b174b7bb143b14a7edb47a2792, type: 2}
+    - {fileID: 11400000, guid: 848c954d1bc09dc4ba24c5df89a0711c, type: 2}

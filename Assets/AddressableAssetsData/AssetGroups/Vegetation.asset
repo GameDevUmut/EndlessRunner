@@ -10,40 +10,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Levels
+  m_Name: Vegetation
   m_EditorClassIdentifier: 
-  m_GroupName: Levels
+  m_GroupName: Vegetation
   m_Data:
     m_SerializedData: []
-  m_GUID: ecc4bb504b881474abfe98da4ec1f916
+  m_GUID: 4adff0630c154f246bffb0663bc750ae
   m_SerializeEntries:
-  - m_GUID: ffd20a215672fcb4a8af2302d5e2bf5a
-    m_Address: Level1
+  - m_GUID: aa979cecccf85264fa104b2ccd479ab4
+    m_Address: SM_Env_Bushes_01
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af39c56cab6efda4981ecdc0dc970d0c
-    m_Address: Level2
+  - m_GUID: 53cc0a19e09835f4fb0adef80edc5bc9
+    m_Address: SM_Env_Bushes_02
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a1580d521cd503c4dad8966dbd700f3d
-    m_Address: Level3
+  - m_GUID: 22d1bb3c605f0a047a3df61400d33cd6
+    m_Address: SM_Env_Bushes_03
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af5be6191adba8a4695abed4ac715587
-    m_Address: Level5
+  - m_GUID: 5bdebad866447df48805ee507df9bead
+    m_Address: SM_Env_Bushes_04
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55e6f32fa9bbf524995a9384ae847470
-    m_Address: Level4
+  - m_GUID: 60b76a1e66df74242b63a79d6a4fbb8c
+    m_Address: SM_Env_Overgrowth_Wall_02
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 786b76af2329c1d40936b4ec0316ff1f
-    m_Address: Level6
+  - m_GUID: 541d55964971acb4badd8724436b8489
+    m_Address: SM_Env_Tree_Dead_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c6eea56361198e4e99317e1f87c7a3d
+    m_Address: SM_Env_Tree_Dead_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cf59c8d766ba654a9893978551d04a3
+    m_Address: SM_Env_Tree_Large_01
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -51,5 +61,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8e467cedd8679ac4e99ad639245097e2, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c53f35c6c0f0e314c9d83a0eea4de955, type: 2}
-    - {fileID: 11400000, guid: 742eabdd9a9e24b43836222f113ad2a9, type: 2}
+    - {fileID: 11400000, guid: 7cf599acbbd20994dbc84f962fc88800, type: 2}
+    - {fileID: 11400000, guid: 2dec509a2e32c03489312e6a12372588, type: 2}
