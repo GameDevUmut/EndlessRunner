@@ -146,13 +146,27 @@ namespace GameCore.RandomizedPropSystem
                 gameObj.transform.rotation = transform.rotation;
                 _hasSpawned = true;
             }
-        }
-
-        private void DespawnProp()
+        }        private void DespawnProp()
         {
             if (_currentSpawnedPoolObject != null)
             {
-                _currentSpawnedPoolObject.Dispose();
+                // Don't dispose if the pool system is already disposing (e.g., during scene unload)
+                if (!PropPooler.IsDisposing)
+                {
+                    try
+                    {
+                        _currentSpawnedPoolObject.Dispose();
+                    }
+                    catch (System.ObjectDisposedException)
+                    {
+                        // Object was already disposed, this can happen in edge cases
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.LogWarning($"Unexpected exception while disposing pooled object: {ex.Message}");
+                    }
+                }
+                
                 _currentSpawnedPoolObject = null;
                 _hasSpawned = false;
             }

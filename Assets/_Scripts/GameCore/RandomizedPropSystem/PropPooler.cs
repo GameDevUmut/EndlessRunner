@@ -33,18 +33,22 @@ namespace GameCore.RandomizedPropSystem
         private List<AddressablePool> roadBlockPools = new List<AddressablePool>();
         private List<AddressablePool> vegetationPools = new List<AddressablePool>();
 
+        private static bool _isDisposing = false;
+
         #endregion
 
         #region Unity Methods
 
         private void Awake()
         {
+            _isDisposing = false;
             CreateAllPools();
         }
 
         private void OnDestroy()
         {
             //we destroy the pool objects, release addressable assets from the memory
+            _isDisposing = true;
             ReleasePools();
         }
 
@@ -116,6 +120,8 @@ namespace GameCore.RandomizedPropSystem
         #region IPropPoolerService Members
 
         public UniTaskCompletionSource<bool> WarmupCompletion { get; } = new UniTaskCompletionSource<bool>();
+
+        public static bool IsDisposing => _isDisposing;
 
         public PooledObject GetRandomBuilding()
         {
