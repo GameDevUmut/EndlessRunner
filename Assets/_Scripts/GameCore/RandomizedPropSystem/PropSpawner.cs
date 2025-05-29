@@ -138,6 +138,10 @@ namespace GameCore.RandomizedPropSystem
             if (_currentSpawnedPoolObject != null)
             {
                 var gameObj = _currentSpawnedPoolObject.Instance;
+                
+                if(propType == PropType.RoadBlock)
+                    gameObj.tag = "Obstacle";
+                
                 gameObj.transform.position = transform.position;
                 gameObj.transform.rotation = transform.rotation;
                 _hasSpawned = true;
