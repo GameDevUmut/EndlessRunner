@@ -23,6 +23,7 @@ namespace GameCore.Player
         [SerializeField]
         private float jumpApexTime = 0.4f; // Time to reach the peak of the jump (and also time to fall back)
         [SerializeField] private float gravityValue = -19.62f; // Custom gravity, e.g., 2 * Physics.gravity.y
+        [SerializeField] private PlayerAnimationController animationController;
 
         #endregion
 
@@ -161,6 +162,7 @@ namespace GameCore.Player
         private IEnumerator PerformJumpCoroutine()
         {
             _isJumping = true;
+            animationController.SetJumpState(true);
             float jumpStartY = transform.position.y;
             float peakY = jumpStartY + jumpDistance;
             float elapsedTime = 0f;
@@ -186,6 +188,7 @@ namespace GameCore.Player
             }
 
             characterController.Move(new Vector3(0, _originalYPosition - transform.position.y, 0));
+            animationController.SetJumpState(false);
             _isJumping = false;
             _playerVelocity.y = -0.5f;
         }
