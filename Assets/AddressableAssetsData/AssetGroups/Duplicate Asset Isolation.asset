@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7d91e1d955e462f4590d1a71c0d71f1a
+  m_SerializeEntries:
+  - m_GUID: 822402f846727b24890cc7d5f5430675
+    m_Address: Assets/PolygonApocalypse/Textures/PolygonApocalypse_Texture_01_A.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5bb68a94905ffc0418608fc7e572ea42
+    m_Address: Assets/PolygonApocalypse/Materials/PolygonApocalypse_Material_01_A.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52544eaa2c194144ab7b28fa647d781c
+    m_Address: Assets/PolygonApocalypse/Textures/Misc/PolygonApocalypse_Emissive_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c99cec570bb90c4db42c3a608969eee
+    m_Address: Assets/PolygonApocalypse/Textures/Misc/PolygonApocalypse_Normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2fa565371d802a34aa02571d549d583e
+    m_Address: Assets/PolygonApocalypse/Models/SM_Prop_Manhole_01.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2992dc7fe4f54264a8b0683e320e36b2
+    m_Address: Assets/PolygonApocalypse/Models/Convex/SM_Prop_Manhole_01_Convex.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26f067e9e8c4bbb4eb122a5fe9073531
+    m_Address: Assets/PolygonApocalypse/Materials/Misc/PolygonApocalypse_Material_Overgrowth_01.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a03a3c794ddc263449b7f54c9c61536d
+    m_Address: Assets/PolygonApocalypse/Textures/Misc/Overgrowth.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31321ba15b8f8eb4c954353edc038b1d
+    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d2bb70cbf9db8d4da26e15b26e74248
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/SimpleLit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8e467cedd8679ac4e99ad639245097e2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 37aef0b24a1cace4fa53a5b56c8d5017, type: 2}
+    - {fileID: 11400000, guid: 8679042c555ef4249bd76f1ce0f2c6cf, type: 2}

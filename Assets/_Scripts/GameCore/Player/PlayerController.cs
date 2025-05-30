@@ -18,30 +18,25 @@ namespace GameCore.Player
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float laneMoveMargin = 3f; // Defines how far left/right a lane is from center
         [SerializeField] private float jumpDistance = 5f;   // How high the character jumps relative to its starting Y
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private float laneChangeSpeed = 10f; // Speed of smoothly changing lanes
+        [SerializeField] private CharacterController characterController;        [SerializeField] private float laneChangeSpeed = 10f; // Speed of smoothly changing lanes
         [SerializeField]
         private float jumpApexTime = 0.4f; // Time to reach the peak of the jump (and also time to fall back)
-        [SerializeField] private float gravityValue = -19.62f; // Custom gravity, e.g., 2 * Physics.gravity.y
         [SerializeField] private PlayerAnimationController animationController;
 
         #endregion
 
-        #region Fields
-
+        #region Fields        
         private int _currentLaneIndex = CENTER_LANE_INDEX;
         private bool _isJumping = false;
         private int _lastDistanceMilestone = 0; // Track last distance milestone to update DistanceTravelled
         private float _originalYPosition;
-        private Vector3 _playerVelocity;
         private float _targetXPosition;
         private bool _isDead = false;
         private IGameService _gameService;
 
         #endregion
 
-        #region Unity Methods
-
+        #region Unity Methods        
         void Start()
 
         {
@@ -52,39 +47,17 @@ namespace GameCore.Player
 
             _originalYPosition = transform.position.y;
             _targetXPosition = GetXPositionForLane(_currentLaneIndex);
-            _playerVelocity.y = -2f;
         }        void Update()
         {
             // Stop all movement if player is dead
             if (_isDead) return;
             
-            bool groundedPlayer = characterController.isGrounded;
             Vector3 forwardDisplacement = transform.forward * moveSpeed * Time.deltaTime;
             float currentX = transform.position.x;
             float desiredXThisFrame = Mathf.Lerp(currentX, _targetXPosition, laneChangeSpeed * Time.deltaTime);
             float horizontalDisplacementX = desiredXThisFrame - currentX;
-            float verticalDisplacementY = 0f;
-            if (_isJumping)
-            {
-            }
-            else
-            {
-                if (groundedPlayer)
-                {
-                    if (_playerVelocity.y < 0)
-                    {
-                        _playerVelocity.y = -0.5f;
-                    }
-                }
-                else
-                {
-                    _playerVelocity.y += gravityValue * Time.deltaTime;
-                }
 
-                verticalDisplacementY = _playerVelocity.y * Time.deltaTime;
-            }
-
-            Vector3 totalDisplacement = new Vector3(horizontalDisplacementX, verticalDisplacementY, 0);
+            Vector3 totalDisplacement = new Vector3(horizontalDisplacementX, 0, 0);
             totalDisplacement += forwardDisplacement;
             characterController.Move(totalDisplacement);
 
@@ -105,13 +78,12 @@ namespace GameCore.Player
 
         #endregion
 
-        #region Public Methods
-
+        #region Public Methods        
         public void Jump()
         {
             if(_isDead) return;
             
-            if (characterController.isGrounded && !_isJumping)
+            if (!_isJumping)
             {
                 StartCoroutine(PerformJumpCoroutine());
             }
@@ -185,12 +157,9 @@ namespace GameCore.Player
                 characterController.Move(new Vector3(0, deltaYThisFrame, 0));
                 elapsedTime += Time.deltaTime;
                 yield return null;
-            }
-
-            characterController.Move(new Vector3(0, _originalYPosition - transform.position.y, 0));
+            }            characterController.Move(new Vector3(0, _originalYPosition - transform.position.y, 0));
             animationController.SetJumpState(false);
             _isJumping = false;
-            _playerVelocity.y = -0.5f;
         }
 
         private void UpdateDistanceTravelled()
