@@ -443,6 +443,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1276193342669242767, guid: 61f8c1831e0f19041b44c1effa3bd74a,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276193342669242767, guid: 61f8c1831e0f19041b44c1effa3bd74a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276193342669242767, guid: 61f8c1831e0f19041b44c1effa3bd74a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276193342669242767, guid: 61f8c1831e0f19041b44c1effa3bd74a,
+        type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
