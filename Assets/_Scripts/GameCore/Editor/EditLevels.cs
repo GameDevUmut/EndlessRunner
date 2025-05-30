@@ -63,13 +63,9 @@ namespace GameCore.Editor
                 
                 EditorGUI.LabelField(new Rect(rect.x, rect.y, 50, rect.height), $"[{index}]");
                 EditorGUI.PropertyField(new Rect(rect.x + 55, rect.y, rect.width - 55, rect.height), element, GUIContent.none);
-            };
-
-            reorderableList.onAddCallback = (ReorderableList list) =>
+            };            reorderableList.onAddCallback = (ReorderableList list) =>
             {
                 levelPrefabReferences.arraySize++;
-                SerializedProperty newElement = levelPrefabReferences.GetArrayElementAtIndex(levelPrefabReferences.arraySize - 1);
-                newElement.objectReferenceValue = null;
             };
 
             reorderableList.onRemoveCallback = (ReorderableList list) =>
